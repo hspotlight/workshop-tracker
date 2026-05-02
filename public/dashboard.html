@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Tracker - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <span class="logo">Workshop Tracker</span>
+    <div class="header-right">
+      <span id="user-email"></span>
+      <button id="logout-btn" class="btn btn-small">Logout</button>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <h1>My Sessions</h1>
+      <button id="create-session-btn" class="btn btn-primary">+ New Session</button>
+    </div>
+
+    <div id="error-message" class="error-message" style="display: none;"></div>
+
+    <!-- Create session modal -->
+    <div id="create-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>Create New Session</h2>
+        <form id="create-form">
+          <label for="session-name">Session Name</label>
+          <input type="text" id="session-name" placeholder="e.g. AWS Workshop June 2026" required />
+
+          <label>Steps</label>
+          <div id="steps-container">
+            <div class="step-input-row">
+              <input type="text" class="step-input" placeholder="Step 1 name" required />
+            </div>
+          </div>
+          <button type="button" id="add-step-btn" class="btn btn-small">+ Add Step</button>
+
+          <div class="modal-actions">
+            <button type="button" id="cancel-create-btn" class="btn btn-small">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create Session</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sessions list -->
+    <div id="sessions-list" class="sessions-list">
+      <p class="loading">Loading sessions...</p>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="utils.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

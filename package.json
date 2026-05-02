@@ -1,0 +1,15 @@
+{
+  "name": "workshop-tracker",
+  "version": "1.0.0",
+  "description": "Track workshop participant progress in real-time with configurable steps and live dashboard",
+  "scripts": {
+    "serve": "python3 -m http.server 3000 --directory public",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "deploy": "firebase deploy"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}

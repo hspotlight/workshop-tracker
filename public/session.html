@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Tracker - Session</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a href="index.html" class="logo">Workshop Tracker</a>
+    <div class="header-right">
+      <span id="user-info"></span>
+      <button id="back-btn" class="btn btn-small" style="display: none;">Back to Dashboard</button>
+    </div>
+  </header>
+
+  <main class="session-main">
+    <div id="error-message" class="error-message" style="display: none;"></div>
+    <div id="loading" class="loading">Loading session...</div>
+
+    <!-- Join form (for participants who haven't joined yet) -->
+    <div id="join-view" style="display: none;">
+      <h1 id="join-session-name"></h1>
+      <p id="join-session-status"></p>
+      <form id="join-form">
+        <label for="display-name">Enter your name to join</label>
+        <input type="text" id="display-name" placeholder="Your name" maxlength="50" required />
+        <button type="submit" class="btn btn-primary">Join Session</button>
+      </form>
+    </div>
+
+    <!-- Participant view (own steps with sequential unlock) -->
+    <div id="participant-view" style="display: none;">
+      <div class="session-header">
+        <h1 id="participant-session-name"></h1>
+        <p id="participant-progress-summary"></p>
+      </div>
+      <div id="steps-list" class="steps-list"></div>
+    </div>
+
+    <!-- Creator view (real-time grid of all participants) -->
+    <div id="creator-view" style="display: none;">
+      <div class="session-header">
+        <h1 id="creator-session-name"></h1>
+        <div class="session-controls">
+          <span id="creator-session-status" class="status-badge"></span>
+          <button id="toggle-session-btn" class="btn btn-small"></button>
+          <button id="copy-link-btn" class="btn btn-small">Copy Link</button>
+        </div>
+      </div>
+      <div id="participants-grid-container">
+        <p id="no-participants" style="display: none;">No participants yet. Share the session link to get started.</p>
+        <div id="participants-grid" class="participants-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="utils.js"></script>
+  <script src="session.js"></script>
+</body>
+</html>
