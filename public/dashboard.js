@@ -108,6 +108,7 @@
       const sessions = await getUserSessions(currentUser.uid);
       renderSessions(sessions);
     } catch (err) {
+      console.error('Failed to load sessions:', err);
       showError('Failed to load sessions: ' + err.message);
     }
   }
