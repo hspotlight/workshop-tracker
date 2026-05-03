@@ -50,6 +50,31 @@
   letter-spacing: -0.5px;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-toggle {
+  padding: 8px 16px;
+  border: 1px solid var(--landing-border);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--landing-muted);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Sora', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.lang-toggle:hover {
+  border-color: var(--landing-accent);
+  color: var(--landing-text);
+}
+
 .nav-cta {
   padding: 10px 24px;
   border: 1px solid var(--landing-border);
@@ -286,49 +311,143 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ── Stats ── */
+/* ── Target Profile ── */
 
-.stats-section {
+.target-section {
   padding: 80px 32px;
+  border-top: 1px solid var(--landing-border);
+  border-bottom: 1px solid var(--landing-border);
+  text-align: center;
+}
+
+.target-section .section-subtitle {
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ── Pain Amplification ── */
+
+.pain-section {
+  padding: 100px 32px;
+}
+
+.pain-list {
+  list-style: none;
+  padding: 0;
+  max-width: 640px;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pain-list li {
+  position: relative;
+  padding-left: 28px;
+  color: var(--landing-muted);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.pain-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--landing-accent);
+  opacity: 0.6;
+}
+
+/* ── Uniqueness ── */
+
+.unique-section {
+  padding: 80px 32px;
+  text-align: center;
   border-top: 1px solid var(--landing-border);
   border-bottom: 1px solid var(--landing-border);
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 800px;
-  margin: 0 auto;
-  gap: 48px;
-  text-align: center;
+.unique-content {
+  max-width: 600px;
 }
 
-.stat-item {
+.unique-title {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--landing-accent), var(--landing-accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.unique-desc {
+  color: var(--landing-muted);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* ── FAQ / Objections ── */
+
+.faq-section {
+  padding: 100px 32px;
+}
+
+.faq-list {
+  max-width: 640px;
+  margin: 48px auto 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  gap: 32px;
 }
 
-.stat-number {
-  font-size: 48px;
-  font-weight: 700;
+.faq-item {
+  padding: 28px 32px;
+  background: var(--landing-surface);
+  border: 1px solid var(--landing-border);
+  border-radius: 12px;
+}
+
+.faq-question {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
   color: var(--landing-text);
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: -2px;
+  letter-spacing: -0.3px;
 }
 
-.stat-suffix {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--landing-accent);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.stat-label {
-  font-size: 14px;
+.faq-answer {
   color: var(--landing-muted);
-  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── Risk Badges ── */
+
+.risk-badges {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.risk-badge {
+  padding: 10px 20px;
+  border: 1px solid var(--landing-border);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--landing-accent-2);
+  letter-spacing: 0.3px;
 }
 
 /* ── How It Works ── */
@@ -549,13 +668,12 @@
   .hero { padding: 100px 20px 40px; }
   .hero-title { letter-spacing: -1px; }
   .hero-visual { margin-top: 50px; }
-  .stats-grid { grid-template-columns: 1fr; gap: 32px; }
-  .stat-number { font-size: 36px; }
   .steps-timeline { padding-left: 30px; }
   .step-icon { margin-left: -30px; width: 32px; height: 32px; }
-  .how-section, .features-section, .cta-section { padding: 80px 20px; }
+  .target-section, .pain-section, .how-section, .features-section, .faq-section, .cta-section { padding: 80px 20px; }
   .features-grid { grid-template-columns: 1fr; }
   .mock-row { font-size: 11px; padding: 10px 8px; }
+  .risk-badges { flex-direction: column; align-items: center; }
 }
 
 @media (max-width: 480px) {

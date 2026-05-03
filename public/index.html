@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,27 +11,30 @@
   <header class="landing-header">
     <nav class="landing-nav">
       <span class="logo">Workshop Tracker</span>
-      <a href="login.html" class="nav-cta">Sign In</a>
+      <div class="nav-right">
+        <button class="lang-toggle" onclick="toggleLang()">EN</button>
+        <a href="login.html" class="nav-cta" data-i18n="navSignIn">เข้าสู่ระบบ</a>
+      </div>
     </nav>
   </header>
 
   <main>
-    <!-- Hero -->
+    <!-- 1. Hero — Problem + Solution -->
     <section class="hero">
       <div class="hero-bg-grid"></div>
       <div class="hero-glow"></div>
       <div class="hero-content">
-        <div class="hero-badge fade-up">Real-time workshop tracking</div>
+        <div class="hero-badge fade-up" data-i18n="heroBadge">ฟรีสำหรับทุกคน</div>
         <h1 class="hero-title fade-up delay-1">
-          Track Every Step.<br/>
-          <span class="gradient-text">See Every Participant.</span>
+          <span data-i18n="heroTitle1">เลิกถามว่า</span><br/>
+          <span class="gradient-text" data-i18n="heroTitle2">"ทุกคนเสร็จหรือยัง?"</span>
         </h1>
-        <p class="hero-subtitle fade-up delay-2">
-          Create sessions with custom steps, share a single link, and watch your entire workshop complete each milestone live on a real-time dashboard.
+        <p class="hero-subtitle fade-up delay-2" data-i18n="heroSubtitle">
+          Workshop Tracker แสดงความคืบหน้าของผู้เข้าร่วมทุกคนแบบเรียลไทม์ — คุณจะรู้ทันทีว่าใครตามทัน ใครติดอยู่ และใครเสร็จแล้ว โดยไม่ต้องหยุดสอน
         </p>
         <div class="hero-actions fade-up delay-3">
-          <a href="login.html" class="btn-hero-primary">Get Started Free</a>
-          <a href="#how-it-works" class="btn-hero-secondary">See How It Works</a>
+          <a href="login.html" class="btn-hero-primary" data-i18n="heroCtaPrimary">เข้าสู่ระบบเพื่อเริ่มต้น</a>
+          <a href="#how-it-works" class="btn-hero-secondary" data-i18n="heroCtaSecondary">ดูวิธีการทำงาน</a>
         </div>
       </div>
       <div class="hero-visual fade-up delay-4">
@@ -43,11 +46,11 @@
           </div>
           <div class="mock-grid">
             <div class="mock-row mock-row-header">
-              <span>Participant</span>
-              <span>Step 1</span>
-              <span>Step 2</span>
-              <span>Step 3</span>
-              <span>Step 4</span>
+              <span data-i18n="mockParticipant">ผู้เข้าร่วม</span>
+              <span><span data-i18n="mockStep">ขั้นตอน</span> 1</span>
+              <span><span data-i18n="mockStep">ขั้นตอน</span> 2</span>
+              <span><span data-i18n="mockStep">ขั้นตอน</span> 3</span>
+              <span><span data-i18n="mockStep">ขั้นตอน</span> 4</span>
             </div>
             <div class="mock-row animate-row" style="--row-delay: 0.5s">
               <span class="mock-name">Alice K.</span>
@@ -82,29 +85,34 @@
       </div>
     </section>
 
-    <!-- Stats -->
-    <section class="stats-section scroll-reveal">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-number counter" data-target="50">0</span><span class="stat-suffix">+</span>
-          <span class="stat-label">Workshops Run</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number counter" data-target="1200">0</span><span class="stat-suffix">+</span>
-          <span class="stat-label">Participants Tracked</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number counter" data-target="99">0</span><span class="stat-suffix">%</span>
-          <span class="stat-label">Completion Visibility</span>
-        </div>
+    <!-- 2. Target Profile -->
+    <section class="target-section scroll-reveal">
+      <div class="section-container">
+        <h2 class="section-title" data-i18n="targetTitle">สร้างมาสำหรับทุกคนที่จัดเวิร์กชอปแบบลงมือทำ</h2>
+        <p class="section-subtitle" data-i18n="targetDesc">
+          ไม่ว่าคุณจะสอน AWS lab, Design Sprint, อบรม Compliance หรือ Onboarding พนักงานใหม่ — ถ้าผู้เข้าร่วมต้องทำตามขั้นตอน และคุณต้องรู้ว่าใครตามทัน เครื่องมือนี้สร้างมาเพื่อคุณ
+        </p>
       </div>
     </section>
 
-    <!-- How It Works -->
+    <!-- 3. Pain Amplification -->
+    <section class="pain-section">
+      <div class="section-container">
+        <h2 class="section-title scroll-reveal" data-i18n="painTitle">เคยเป็นแบบนี้ไหม?</h2>
+        <ul class="pain-list scroll-reveal" data-i18n-list="painItems">
+          <li>หยุดสอนทุกขั้นตอนเพื่อถามว่า "ทุกคนเสร็จหรือยัง?" — แล้วไม่มีใครตอบ</li>
+          <li>เดินไปดูหน้าจอทีละคน ขณะที่คนที่เสร็จแล้วนั่งรอ</li>
+          <li>สอนจบแล้วไม่รู้เลยว่าขั้นตอนไหนเป็นจุดที่คนติด</li>
+          <li>เสียเวลาไปกับการติดตามความคืบหน้า มากกว่าการสอนจริงๆ</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. How It Works -->
     <section class="how-section" id="how-it-works">
       <div class="section-container">
-        <h2 class="section-title scroll-reveal">How It Works</h2>
-        <p class="section-subtitle scroll-reveal">Three steps to real-time workshop visibility</p>
+        <h2 class="section-title scroll-reveal" data-i18n="howTitle">วิธีการทำงาน</h2>
+        <p class="section-subtitle scroll-reveal" data-i18n="howSubtitle">3 ขั้นตอนสู่การติดตามเวิร์กชอปแบบเรียลไทม์</p>
         <div class="steps-timeline">
           <div class="timeline-line"></div>
           <div class="step-block scroll-reveal">
@@ -112,8 +120,8 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
             </div>
             <div class="step-content">
-              <h3>1. Create Your Session</h3>
-              <p>Define your workshop steps in order. Name your session and set up each milestone your participants need to complete.</p>
+              <h3 data-i18n="howStep1Title">1. สร้างเซสชัน</h3>
+              <p data-i18n="howStep1Desc">กำหนดขั้นตอนเวิร์กชอปตามลำดับ ตั้งชื่อเซสชันและตั้งค่าแต่ละ milestone ที่ผู้เข้าร่วมต้องทำให้เสร็จ</p>
             </div>
           </div>
           <div class="step-block scroll-reveal">
@@ -121,8 +129,8 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             </div>
             <div class="step-content">
-              <h3>2. Share the Link</h3>
-              <p>One URL does it all. Participants open it, enter their name, and start completing steps. No sign-up friction.</p>
+              <h3 data-i18n="howStep2Title">2. แชร์ลิงก์</h3>
+              <p data-i18n="howStep2Desc">ลิงก์เดียวทำได้ทุกอย่าง ผู้เข้าร่วมเปิดลิงก์ ใส่ชื่อ แล้วเริ่มทำได้เลย ไม่ต้องสมัครสมาชิก</p>
             </div>
           </div>
           <div class="step-block scroll-reveal">
@@ -130,81 +138,97 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             </div>
             <div class="step-content">
-              <h3>3. Watch Progress Live</h3>
-              <p>Your dashboard updates in real-time. See who's ahead, who's stuck, and when everyone finishes — all at a glance.</p>
+              <h3 data-i18n="howStep3Title">3. ดูความคืบหน้าแบบ Live</h3>
+              <p data-i18n="howStep3Desc">แดชบอร์ดอัปเดตแบบเรียลไทม์ เห็นว่าใครนำหน้า ใครติดอยู่ และทุกคนเสร็จเมื่อไหร่ — ดูได้ในหน้าเดียว</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Features -->
+    <!-- 5. Uniqueness -->
+    <section class="unique-section scroll-reveal">
+      <div class="section-container unique-content">
+        <h2 class="unique-title" data-i18n="uniqueTitle">เรียลไทม์ซิงก์ที่มีโครงสร้าง</h2>
+        <p class="unique-desc" data-i18n="uniqueDesc">ลิงก์เดียว. ความคืบหน้าทุกคน. อัปเดตแบบ Live.</p>
+      </div>
+    </section>
+
+    <!-- 6. Features (trimmed to 4) -->
     <section class="features-section">
       <div class="section-container">
-        <h2 class="section-title scroll-reveal">Built for Workshop Leaders</h2>
-        <p class="section-subtitle scroll-reveal">Everything you need, nothing you don't</p>
+        <h2 class="section-title scroll-reveal" data-i18n="featuresTitle">ฟีเจอร์ที่สำคัญ</h2>
+        <p class="section-subtitle scroll-reveal" data-i18n="featuresSubtitle">ทุกอย่างที่คุณต้องการ ไม่มีอะไรเกินจำเป็น</p>
         <div class="features-grid">
           <div class="feature-card scroll-reveal">
             <div class="feature-icon-wrap">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             </div>
-            <h3>Sequential Steps</h3>
-            <p>Steps unlock in order. Participants can't skip ahead — keeping everyone on track with your curriculum.</p>
+            <h3 data-i18n="feature1Title">ขั้นตอนตามลำดับ</h3>
+            <p data-i18n="feature1Desc">ขั้นตอนปลดล็อกตามลำดับ ผู้เข้าร่วมข้ามขั้นตอนไม่ได้ — ทุกคนเรียนรู้ไปพร้อมกัน</p>
           </div>
           <div class="feature-card scroll-reveal">
             <div class="feature-icon-wrap">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <h3>Timestamped Progress</h3>
-            <p>Every completion is timestamped. Analyze pacing, identify bottlenecks, and improve future sessions.</p>
+            <h3 data-i18n="feature2Title">บันทึกเวลาทุกขั้นตอน</h3>
+            <p data-i18n="feature2Desc">ทุกการเสร็จสิ้นมีการบันทึกเวลา วิเคราะห์จังหวะการสอน หาจุดคอขวด และปรับปรุงเซสชันถัดไป</p>
           </div>
           <div class="feature-card scroll-reveal">
             <div class="feature-icon-wrap">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-            <h3>Zero Friction Join</h3>
-            <p>Participants just enter a name — no accounts, no passwords, no downloads. Gets them into the action instantly.</p>
+            <h3 data-i18n="feature3Title">เข้าร่วมง่าย ไม่ต้องสมัคร</h3>
+            <p data-i18n="feature3Desc">ผู้เข้าร่วมแค่ใส่ชื่อ — ไม่ต้องสร้างบัญชี ไม่ต้องใส่รหัสผ่าน ไม่ต้องดาวน์โหลด เริ่มได้ทันที</p>
           </div>
           <div class="feature-card scroll-reveal">
             <div class="feature-icon-wrap">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
-            <h3>One Link, Two Views</h3>
-            <p>Same URL serves the creator dashboard and participant view. Authorization decides what you see.</p>
-          </div>
-          <div class="feature-card scroll-reveal">
-            <div class="feature-icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-            </div>
-            <h3>Creator Reset</h3>
-            <p>Need someone to redo a step? Reset individual participant progress with one click from your dashboard.</p>
-          </div>
-          <div class="feature-card scroll-reveal">
-            <div class="feature-icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3>Secure by Default</h3>
-            <p>Only creators can manage sessions. Participants can only update their own progress. Everything else is locked down.</p>
+            <h3 data-i18n="feature4Title">ลิงก์เดียว สองมุมมอง</h3>
+            <p data-i18n="feature4Desc">URL เดียวแสดงแดชบอร์ดผู้สอนและมุมมองผู้เข้าร่วม สิทธิ์กำหนดว่าคุณเห็นอะไร</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- 7. FAQ / Objections -->
+    <section class="faq-section">
+      <div class="section-container">
+        <h2 class="section-title scroll-reveal" data-i18n="faqTitle">คำถามที่พบบ่อย</h2>
+        <div class="faq-list">
+          <div class="faq-item scroll-reveal">
+            <h3 class="faq-question" data-i18n="faq1Q">จัดเวิร์กชอปไม่บ่อย คุ้มไหมที่จะใช้?</h3>
+            <p class="faq-answer" data-i18n="faq1A">ไม่ต้องเรียนรู้อะไรเลย สร้างเซสชันได้ภายใน 1 นาทีทุกครั้ง</p>
+          </div>
+          <div class="faq-item scroll-reveal">
+            <h3 class="faq-question" data-i18n="faq2Q">เรื่องความเป็นส่วนตัวของผู้เข้าร่วมล่ะ?</h3>
+            <p class="faq-answer" data-i18n="faq2A">ผู้เข้าร่วมใส่แค่ชื่อที่แสดง ไม่ต้องสร้างบัญชี ไม่เก็บข้อมูลส่วนบุคคล</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Risk Reversal + CTA -->
     <section class="cta-section scroll-reveal">
       <div class="cta-glow"></div>
       <div class="cta-content">
-        <h2>Ready to run your next workshop?</h2>
-        <p>Set up your first session in under a minute. No credit card, no complex onboarding.</p>
-        <a href="login.html" class="btn-hero-primary">Start Tracking Now</a>
+        <h2 data-i18n="ctaTitle">พร้อมจัดเวิร์กชอปครั้งต่อไปหรือยัง?</h2>
+        <div class="risk-badges">
+          <span class="risk-badge" data-i18n="ctaBadge1">ฟรีตลอด</span>
+          <span class="risk-badge" data-i18n="ctaBadge2">ตั้งค่าใน 1 นาที</span>
+          <span class="risk-badge" data-i18n="ctaBadge3">ผู้เข้าร่วมไม่ต้องล็อกอิน</span>
+        </div>
+        <a href="login.html" class="btn-hero-primary" data-i18n="ctaButton">เข้าสู่ระบบเพื่อเริ่มต้น</a>
       </div>
     </section>
   </main>
 
   <footer class="landing-footer">
-    <p>Workshop Tracker &mdash; Built for instructors who care about progress.</p>
+    <p data-i18n="footer">Workshop Tracker — สร้างมาสำหรับผู้สอนที่ใส่ใจความก้าวหน้า</p>
   </footer>
 
+  <script src="i18n.js"></script>
   <script src="landing.js"></script>
 </body>
 </html>
