@@ -80,6 +80,58 @@
       }
     });
 
+    // Edit session
+    const editModal = document.getElementById('edit-modal');
+    const editStepsContainer = document.getElementById('edit-steps-container');
+
+    function buildEditStepRow(step) {
+      const row = document.createElement('div');
+      row.className = 'step-input-row';
+      if (step && step.id) row.dataset.stepId = step.id;
+      row.innerHTML =
+        '<input type="text" class="step-input" placeholder="Step name" value="' + (step ? escapeHtml(step.name) : '') + '" required />' +
+        '<textarea class="step-desc-input" placeholder="Step description (optional)" rows="2">' + (step && step.description ? escapeHtml(step.description) : '') + '</textarea>' +
+        '<button type="button" class="btn btn-small btn-remove-step">x</button>';
+      row.querySelector('.btn-remove-step').addEventListener('click', () => row.remove());
+      return row;
+    }
+
+    document.getElementById('edit-session-btn').addEventListener('click', () => {
+      document.getElementById('edit-session-name').value = sessionData.name;
+      editStepsContainer.innerHTML = '';
+      sessionData.steps.forEach(step => editStepsContainer.appendChild(buildEditStepRow(step)));
+      editModal.style.display = 'flex';
+    });
+
+    document.getElementById('cancel-edit-btn').addEventListener('click', () => {
+      editModal.style.display = 'none';
+    });
+
+    document.getElementById('edit-add-step-btn').addEventListener('click', () => {
+      editStepsContainer.appendChild(buildEditStepRow(null));
+    });
+
+    document.getElementById('edit-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('edit-session-name').value;
+      const rows = editStepsContainer.querySelectorAll('.step-input-row');
+      const steps = Array.from(rows).map(row => ({
+        id: row.dataset.stepId || null,
+        name: row.querySelector('.step-input').value,
+        description: row.querySelector('.step-desc-input').value,
+      }));
+
+      try {
+        const updated = await updateSession(sessionId, { name, steps });
+        sessionData.name = updated.name;
+        sessionData.steps = updated.steps;
+        document.getElementById('creator-session-name').textContent = updated.name;
+        editModal.style.display = 'none';
+      } catch (err) {
+        showError(err.message);
+      }
+    });
+
     // Copy link
     document.getElementById('copy-link-btn').addEventListener('click', () => {
       const url = window.location.origin + '/session.html?id=' + sessionId;
@@ -262,7 +314,10 @@
       return '<div class="' + statusClass + '">' +
         '<div class="step-info">' +
           '<span class="step-number">' + (index + 1) + '</span>' +
-          '<span class="step-name">' + escapeHtml(step.name) + '</span>' +
+          '<div class="step-name-group">' +
+            '<span class="step-name">' + escapeHtml(step.name) + '</span>' +
+            (step.description ? '<span class="step-description">' + escapeHtml(step.description) + '</span>' : '') +
+          '</div>' +
         '</div>' +
         buttonHtml +
       '</div>';

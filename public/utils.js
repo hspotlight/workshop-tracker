@@ -49,9 +49,10 @@ async function createSession(userId, data) {
   if (!name) throw new Error('Session name is required');
   if (!data.steps || data.steps.length === 0) throw new Error('At least one step is required');
 
-  const steps = data.steps.map((stepName, index) => ({
+  const steps = data.steps.map((step, index) => ({
     id: 'step-' + index,
-    name: stepName.trim(),
+    name: step.name.trim(),
+    description: step.description?.trim() || '',
   }));
 
   const sessionId = generateId();
@@ -78,6 +79,21 @@ async function getUserSessions(userId) {
     .orderBy('createdAt', 'desc')
     .get();
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+async function updateSession(sessionId, data) {
+  const name = data.name?.trim();
+  if (!name) throw new Error('Session name is required');
+  if (!data.steps || data.steps.length === 0) throw new Error('At least one step is required');
+
+  const steps = data.steps.map(step => ({
+    id: step.id || 'step-' + generateId(),
+    name: step.name.trim(),
+    description: step.description?.trim() || '',
+  }));
+
+  await db.collection('sessions').doc(sessionId).update({ name, steps });
+  return { name, steps };
 }
 
 async function closeSession(sessionId) {
@@ -160,7 +176,8 @@ function validateSessionData(data) {
   if (!data.steps || data.steps.length === 0) errors.push('At least one step is required');
   if (data.steps) {
     data.steps.forEach((step, i) => {
-      if (!step?.trim()) errors.push('Step ' + (i + 1) + ' name is required');
+      const name = typeof step === 'string' ? step : step?.name;
+      if (!name?.trim()) errors.push('Step ' + (i + 1) + ' name is required');
     });
   }
   return errors;
@@ -197,5 +214,6 @@ if (typeof module !== 'undefined' && module.exports) {
     canCompleteStep,
     getCompletedCount,
     isAllComplete,
+    updateSession,
   };
 }

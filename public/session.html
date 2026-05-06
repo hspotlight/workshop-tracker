@@ -46,12 +46,31 @@
         <div class="session-controls">
           <span id="creator-session-status" class="status-badge"></span>
           <button id="toggle-session-btn" class="btn btn-small"></button>
+          <button id="edit-session-btn" class="btn btn-small">Edit Session</button>
           <button id="copy-link-btn" class="btn btn-small">Copy Link</button>
         </div>
       </div>
       <div id="participants-grid-container">
         <p id="no-participants" style="display: none;">No participants yet. Share the session link to get started.</p>
         <div id="participants-grid" class="participants-grid"></div>
+      </div>
+    </div>
+
+    <!-- Edit session modal -->
+    <div id="edit-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>Edit Session</h2>
+        <form id="edit-form">
+          <label for="edit-session-name">Session Name</label>
+          <input type="text" id="edit-session-name" required />
+          <label>Steps</label>
+          <div id="edit-steps-container"></div>
+          <button type="button" id="edit-add-step-btn" class="btn btn-small">+ Add Step</button>
+          <div class="modal-actions">
+            <button type="button" id="cancel-edit-btn" class="btn btn-small">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </main>

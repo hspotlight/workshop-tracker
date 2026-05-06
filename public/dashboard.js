@@ -56,6 +56,7 @@
     row.className = 'step-input-row';
     row.innerHTML =
       '<input type="text" class="step-input" placeholder="Step ' + (count + 1) + ' name" required />' +
+      '<textarea class="step-desc-input" placeholder="Step description (optional)" rows="2"></textarea>' +
       '<button type="button" class="btn btn-small btn-remove-step">x</button>';
     stepsContainer.appendChild(row);
 
@@ -69,6 +70,7 @@
     stepsContainer.innerHTML =
       '<div class="step-input-row">' +
       '<input type="text" class="step-input" placeholder="Step 1 name" required />' +
+      '<textarea class="step-desc-input" placeholder="Step description (optional)" rows="2"></textarea>' +
       '</div>';
   }
 
@@ -81,8 +83,11 @@
   createForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('session-name').value;
-    const stepInputs = stepsContainer.querySelectorAll('.step-input');
-    const steps = Array.from(stepInputs).map(input => input.value);
+    const rows = stepsContainer.querySelectorAll('.step-input-row');
+    const steps = Array.from(rows).map(row => ({
+      name: row.querySelector('.step-input').value,
+      description: row.querySelector('.step-desc-input').value,
+    }));
 
     const errors = validateSessionData({ name, steps });
     if (errors.length > 0) {

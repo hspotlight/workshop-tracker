@@ -377,6 +377,10 @@ input::placeholder { color: var(--color-text-muted); opacity: 0.6; }
 
 .step-info { display: flex; align-items: center; gap: 14px; }
 
+.step-name-group { display: flex; flex-direction: column; gap: 2px; }
+
+.step-description { font-size: 13px; color: var(--color-text-secondary); line-height: 1.4; }
+
 .step-number {
   width: 32px;
   height: 32px;

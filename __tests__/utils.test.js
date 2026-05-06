@@ -46,18 +46,23 @@ describe('generateId', () => {
 });
 
 describe('validateSessionData', () => {
-  test('returns no errors for valid data', () => {
+  test('returns no errors for valid data (object steps)', () => {
+    const errors = validateSessionData({ name: 'My Session', steps: [{ name: 'Step 1' }, { name: 'Step 2' }] });
+    expect(errors).toEqual([]);
+  });
+
+  test('returns no errors for valid data (string steps legacy)', () => {
     const errors = validateSessionData({ name: 'My Session', steps: ['Step 1', 'Step 2'] });
     expect(errors).toEqual([]);
   });
 
   test('returns error for empty name', () => {
-    const errors = validateSessionData({ name: '', steps: ['Step 1'] });
+    const errors = validateSessionData({ name: '', steps: [{ name: 'Step 1' }] });
     expect(errors).toContain('Session name is required');
   });
 
   test('returns error for whitespace-only name', () => {
-    const errors = validateSessionData({ name: '   ', steps: ['Step 1'] });
+    const errors = validateSessionData({ name: '   ', steps: [{ name: 'Step 1' }] });
     expect(errors).toContain('Session name is required');
   });
 
@@ -66,7 +71,12 @@ describe('validateSessionData', () => {
     expect(errors).toContain('At least one step is required');
   });
 
-  test('returns error for empty step name', () => {
+  test('returns error for empty step name (object)', () => {
+    const errors = validateSessionData({ name: 'My Session', steps: [{ name: 'Step 1' }, { name: '' }] });
+    expect(errors).toContain('Step 2 name is required');
+  });
+
+  test('returns error for empty step name (string legacy)', () => {
     const errors = validateSessionData({ name: 'My Session', steps: ['Step 1', ''] });
     expect(errors).toContain('Step 2 name is required');
   });
