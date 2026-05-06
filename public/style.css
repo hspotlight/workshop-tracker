@@ -35,6 +35,20 @@ body.light-mode .app-header {
   background: rgba(245, 245, 250, 0.9);
 }
 
+body.light-mode.landing-body {
+  --landing-bg: #f5f5fa;
+  --landing-surface: #ffffff;
+  --landing-border: #dcdce8;
+  --landing-text: #1a1a2e;
+  --landing-muted: #6a6a8c;
+  --landing-glow: rgba(108, 99, 255, 0.1);
+}
+
+body.light-mode .landing-body .landing-header,
+body.light-mode.landing-body .landing-header {
+  background: rgba(245, 245, 250, 0.9);
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
