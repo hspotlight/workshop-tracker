@@ -13,6 +13,29 @@
   const stepsContainer = document.getElementById('steps-container');
   const sessionsListEl = document.getElementById('sessions-list');
   const errorEl = document.getElementById('error-message');
+  const confirmDeleteModal = document.getElementById('confirm-delete-modal');
+  const confirmDeleteNameEl = document.getElementById('confirm-delete-name');
+  const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+  const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+
+  let pendingDeleteId = null;
+
+  cancelDeleteBtn.addEventListener('click', () => {
+    confirmDeleteModal.style.display = 'none';
+    pendingDeleteId = null;
+  });
+
+  confirmDeleteBtn.addEventListener('click', async () => {
+    if (!pendingDeleteId) return;
+    try {
+      await deleteSession(pendingDeleteId);
+      confirmDeleteModal.style.display = 'none';
+      pendingDeleteId = null;
+      loadSessions();
+    } catch (err) {
+      showError(err.message);
+    }
+  });
 
   let currentUser = null;
 
@@ -138,6 +161,7 @@
         '<div class="session-card-actions">' +
           '<a href="session.html?id=' + session.id + '" class="btn btn-small btn-primary">Open</a>' +
           '<button class="btn btn-small btn-copy" data-url="' + escapeHtml(sessionUrl) + '">Copy Link</button>' +
+          '<button class="btn btn-small btn-danger btn-delete" data-session-id="' + session.id + '" data-session-name="' + escapeHtml(session.name) + '">Delete</button>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -147,6 +171,14 @@
         navigator.clipboard.writeText(btn.dataset.url);
         btn.textContent = 'Copied!';
         setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
+      });
+    });
+
+    sessionsListEl.querySelectorAll('.btn-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        pendingDeleteId = btn.dataset.sessionId;
+        confirmDeleteNameEl.textContent = btn.dataset.sessionName;
+        confirmDeleteModal.style.display = 'flex';
       });
     });
   }

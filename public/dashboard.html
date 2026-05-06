@@ -11,6 +11,7 @@
     <span class="logo">Workshop Tracker</span>
     <div class="header-right">
       <span id="user-email"></span>
+      <button id="theme-toggle-btn" class="theme-toggle" title="Toggle theme">☀️</button>
       <button id="logout-btn" class="btn btn-small">Logout</button>
     </div>
   </header>
@@ -48,6 +49,20 @@
       </div>
     </div>
 
+    <!-- Delete confirm modal -->
+    <div id="confirm-delete-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>Delete Session</h2>
+        <p style="margin-top: 12px; color: var(--color-text-muted); font-size: 14px;">
+          Delete "<strong id="confirm-delete-name"></strong>"? This cannot be undone.
+        </p>
+        <div class="modal-actions">
+          <button type="button" id="cancel-delete-btn" class="btn btn-small">Cancel</button>
+          <button type="button" id="confirm-delete-btn" class="btn btn-small btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Sessions list -->
     <div id="sessions-list" class="sessions-list">
       <p class="loading">Loading sessions...</p>
@@ -59,6 +74,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js"></script>
   <script src="utils.js"></script>
+  <script src="theme.js"></script>
   <script src="dashboard.js"></script>
 </body>
 </html>

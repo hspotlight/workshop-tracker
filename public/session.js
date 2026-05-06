@@ -199,7 +199,10 @@
           html += '<td class="step-pending"></td>';
         }
       });
-      html += '<td><button class="btn btn-small btn-reset" data-participant-id="' + p.id + '">Reset</button></td>';
+      html += '<td class="participant-actions">' +
+        '<button class="btn btn-small btn-reset" data-participant-id="' + p.id + '">Reset</button>' +
+        '<button class="btn btn-small btn-danger btn-remove" data-participant-id="' + p.id + '" data-participant-name="' + escapeHtml(p.displayName) + '">Remove</button>' +
+        '</td>';
       html += '</tr>';
     });
     html += '</tbody></table>';
@@ -212,6 +215,20 @@
         const pid = btn.dataset.participantId;
         try {
           await resetParticipant(sessionId, pid);
+        } catch (err) {
+          showError(err.message);
+        }
+      });
+    });
+
+    // Attach remove handlers
+    gridEl.querySelectorAll('.btn-remove').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const pid = btn.dataset.participantId;
+        const name = btn.dataset.participantName;
+        if (!confirm('Remove "' + name + '" from this session?')) return;
+        try {
+          await removeParticipant(sessionId, pid);
         } catch (err) {
           showError(err.message);
         }

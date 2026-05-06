@@ -96,6 +96,10 @@ async function updateSession(sessionId, data) {
   return { name, steps };
 }
 
+async function deleteSession(sessionId) {
+  await db.collection('sessions').doc(sessionId).delete();
+}
+
 async function closeSession(sessionId) {
   await db.collection('sessions').doc(sessionId).update({ status: 'closed' });
 }
@@ -145,6 +149,12 @@ async function resetParticipant(sessionId, participantId) {
   await db.collection('sessions').doc(sessionId)
     .collection('participants').doc(participantId)
     .update({ progress: {} });
+}
+
+async function removeParticipant(sessionId, participantId) {
+  await db.collection('sessions').doc(sessionId)
+    .collection('participants').doc(participantId)
+    .delete();
 }
 
 // ── Real-time listeners ──

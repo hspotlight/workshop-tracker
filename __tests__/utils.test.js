@@ -180,6 +180,54 @@ describe('getCompletedCount', () => {
   });
 });
 
+describe('validateSessionData — step descriptions', () => {
+  test('ignores description field (it is optional)', () => {
+    const errors = validateSessionData({
+      name: 'My Session',
+      steps: [
+        { name: 'Step 1', description: 'Do this' },
+        { name: 'Step 2', description: '' },
+        { name: 'Step 3' },
+      ],
+    });
+    expect(errors).toEqual([]);
+  });
+
+  test('returns error when step name is whitespace even with description', () => {
+    const errors = validateSessionData({
+      name: 'My Session',
+      steps: [{ name: '   ', description: 'Some description' }],
+    });
+    expect(errors).toContain('Step 1 name is required');
+  });
+
+  test('returns error when step name is missing (object with no name key)', () => {
+    const errors = validateSessionData({
+      name: 'My Session',
+      steps: [{ description: 'Only a description' }],
+    });
+    expect(errors).toContain('Step 1 name is required');
+  });
+});
+
+describe('escapeHtml — confirm dialog safety', () => {
+  test('escapes participant name with angle brackets (HTML injection)', () => {
+    const result = escapeHtml('<img src=x onerror=alert(1)>');
+    expect(result).not.toContain('<');
+    expect(result).toContain('&lt;');
+    expect(result).toContain('&gt;');
+  });
+
+  test('escapes participant name with angle brackets', () => {
+    const result = escapeHtml('<Bob>');
+    expect(result).toBe('&lt;Bob&gt;');
+  });
+
+  test('safe participant name is unchanged', () => {
+    expect(escapeHtml('Alice K.')).toBe('Alice K.');
+  });
+});
+
 describe('isAllComplete', () => {
   const steps = [
     { id: 'step-0', name: 'Step 1' },
