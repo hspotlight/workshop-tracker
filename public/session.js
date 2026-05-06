@@ -89,12 +89,60 @@
       row.className = 'step-input-row';
       if (step && step.id) row.dataset.stepId = step.id;
       row.innerHTML =
+        '<span class="drag-handle" draggable="true">&#8942;</span>' +
         '<input type="text" class="step-input" placeholder="Step name" value="' + (step ? escapeHtml(step.name) : '') + '" required />' +
         '<textarea class="step-desc-input" placeholder="Step description (optional)" rows="2">' + (step && step.description ? escapeHtml(step.description) : '') + '</textarea>' +
         '<button type="button" class="btn btn-small btn-remove-step">x</button>';
       row.querySelector('.btn-remove-step').addEventListener('click', () => row.remove());
       return row;
     }
+
+    // Enable drag-to-reorder on steps container
+    (function makeDraggable(container) {
+      let dragSrc = null;
+
+      container.addEventListener('dragstart', (e) => {
+        if (!e.target.classList.contains('drag-handle')) return;
+        dragSrc = e.target.closest('.step-input-row');
+        if (!dragSrc) return;
+        e.dataTransfer.effectAllowed = 'move';
+        dragSrc.classList.add('dragging');
+      });
+
+      container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const row = e.target.closest('.step-input-row');
+        if (!row || row === dragSrc) return;
+        e.dataTransfer.dropEffect = 'move';
+        container.querySelectorAll('.step-input-row').forEach(r => r.classList.remove('drag-over'));
+        row.classList.add('drag-over');
+      });
+
+      container.addEventListener('dragleave', (e) => {
+        const row = e.target.closest('.step-input-row');
+        if (row) row.classList.remove('drag-over');
+      });
+
+      container.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const target = e.target.closest('.step-input-row');
+        if (!target || !dragSrc || target === dragSrc) return;
+        container.querySelectorAll('.step-input-row').forEach(r => r.classList.remove('drag-over'));
+        dragSrc.classList.remove('dragging');
+        const rows = [...container.querySelectorAll('.step-input-row')];
+        if (rows.indexOf(dragSrc) < rows.indexOf(target)) {
+          target.after(dragSrc);
+        } else {
+          target.before(dragSrc);
+        }
+      });
+
+      container.addEventListener('dragend', () => {
+        if (dragSrc) dragSrc.classList.remove('dragging');
+        container.querySelectorAll('.step-input-row').forEach(r => r.classList.remove('drag-over'));
+        dragSrc = null;
+      });
+    }(editStepsContainer));
 
     document.getElementById('edit-session-btn').addEventListener('click', () => {
       document.getElementById('edit-session-name').value = sessionData.name;

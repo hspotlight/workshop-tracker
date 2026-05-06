@@ -74,6 +74,7 @@ sessions/{sessionId}/participants/{participantId}
 - Same URL for creator and participant — authorization determines the view
 - `escapeHtml()` used for all user-generated content (XSS prevention)
 - Tests target pure functions only — no Firebase SDK in tests
+- Steps can be reordered via drag-and-drop (handle icon) in both create and edit modals
 
 ## Testing Patterns
 

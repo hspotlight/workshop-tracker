@@ -75,27 +75,79 @@
 
   addStepBtn.addEventListener('click', () => {
     const count = stepsContainer.querySelectorAll('.step-input-row').length;
-    const row = document.createElement('div');
-    row.className = 'step-input-row';
-    row.innerHTML =
-      '<input type="text" class="step-input" placeholder="Step ' + (count + 1) + ' name" required />' +
-      '<textarea class="step-desc-input" placeholder="Step description (optional)" rows="2"></textarea>' +
-      '<button type="button" class="btn btn-small btn-remove-step">x</button>';
+    const row = makeStepRow('Step ' + (count + 1) + ' name', true);
     stepsContainer.appendChild(row);
-
     row.querySelector('.btn-remove-step').addEventListener('click', () => {
       row.remove();
       renumberSteps();
     });
   });
 
-  function resetStepInputs() {
-    stepsContainer.innerHTML =
-      '<div class="step-input-row">' +
-      '<input type="text" class="step-input" placeholder="Step 1 name" required />' +
+  function makeStepRow(placeholder, withRemove) {
+    const row = document.createElement('div');
+    row.className = 'step-input-row';
+    row.innerHTML =
+      '<span class="drag-handle" draggable="true">&#8942;</span>' +
+      '<input type="text" class="step-input" placeholder="' + placeholder + '" required />' +
       '<textarea class="step-desc-input" placeholder="Step description (optional)" rows="2"></textarea>' +
-      '</div>';
+      (withRemove ? '<button type="button" class="btn btn-small btn-remove-step">x</button>' : '');
+    return row;
   }
+
+  function resetStepInputs() {
+    stepsContainer.innerHTML = '';
+    stepsContainer.appendChild(makeStepRow('Step 1 name', false));
+  }
+
+  // Enable drag-to-reorder on a steps container
+  function makeDraggable(container) {
+    let dragSrc = null;
+
+    container.addEventListener('dragstart', (e) => {
+      if (!e.target.classList.contains('drag-handle')) return;
+      dragSrc = e.target.closest('.step-input-row');
+      if (!dragSrc) return;
+      e.dataTransfer.effectAllowed = 'move';
+      dragSrc.classList.add('dragging');
+    });
+
+    container.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const row = e.target.closest('.step-input-row');
+      if (!row || row === dragSrc) return;
+      e.dataTransfer.dropEffect = 'move';
+      container.querySelectorAll('.step-input-row').forEach(r => r.classList.remove('drag-over'));
+      row.classList.add('drag-over');
+    });
+
+    container.addEventListener('dragleave', (e) => {
+      const row = e.target.closest('.step-input-row');
+      if (row) row.classList.remove('drag-over');
+    });
+
+    container.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const target = e.target.closest('.step-input-row');
+      if (!target || !dragSrc || target === dragSrc) return;
+      container.querySelectorAll('.step-input-row').forEach(r => r.classList.remove('drag-over'));
+      dragSrc.classList.remove('dragging');
+      const rows = [...container.querySelectorAll('.step-input-row')];
+      if (rows.indexOf(dragSrc) < rows.indexOf(target)) {
+        target.after(dragSrc);
+      } else {
+        target.before(dragSrc);
+      }
+      renumberSteps();
+    });
+
+    container.addEventListener('dragend', () => {
+      if (dragSrc) dragSrc.classList.remove('dragging');
+      container.querySelectorAll('.step-input-row').forEach(r => r.classList.remove('drag-over'));
+      dragSrc = null;
+    });
+  }
+
+  makeDraggable(stepsContainer);
 
   function renumberSteps() {
     stepsContainer.querySelectorAll('.step-input').forEach((input, i) => {
