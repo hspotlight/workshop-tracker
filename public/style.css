@@ -428,7 +428,7 @@ input::placeholder { color: var(--color-text-muted); opacity: 0.6; }
 
 /* ── Session Page ── */
 
-.session-main { max-width: 1000px; margin: 0 auto; padding: 32px; }
+.session-main { max-width: 1200px; margin: 0 auto; padding: 32px; }
 
 .session-header { margin-bottom: 28px; }
 .session-header h1 { margin-bottom: 10px; font-size: 24px; letter-spacing: -0.5px; }

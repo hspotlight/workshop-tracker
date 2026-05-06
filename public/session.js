@@ -175,6 +175,7 @@
         sessionData.steps = updated.steps;
         document.getElementById('creator-session-name').textContent = updated.name;
         editModal.style.display = 'none';
+        renderGrid(lastParticipants);
       } catch (err) {
         showError(err.message);
       }
@@ -189,8 +190,12 @@
       setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
     });
 
-    // Real-time participants grid
-    unsubscribe = onParticipantsChanged(sessionId, renderGrid);
+    // Real-time participants grid — cache last snapshot to re-render after edits
+    let lastParticipants = [];
+    unsubscribe = onParticipantsChanged(sessionId, (participants) => {
+      lastParticipants = participants;
+      renderGrid(participants);
+    });
   }
 
   function updateSessionStatus() {
